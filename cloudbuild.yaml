@@ -22,7 +22,7 @@ steps:
       - 'gcloud'
       - 'run'
       - 'deploy'
-      - 'api-poc:latest'
+      - 'my-service-${SHORT_SHA}'
       - '--image=gcr.io/training-384005/api-poc:latest'
       - '--region'
       - 'us-central1'
