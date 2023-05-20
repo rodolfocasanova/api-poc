@@ -31,7 +31,8 @@ spec:
       - name: flask-app
         # Replace $LOCATION with your Artifact Registry location (e.g., us-west1).
         # Replace $GCLOUD_PROJECT with your project ID.
-        image: $GAR_URI/$CLOUDSDK_CORE_PROJECT/$REPOSITORY/$CONTAINER_NAME:latest
+        #image: $GAR_URI/$CLOUDSDK_CORE_PROJECT/$REPOSITORY/$CONTAINER_NAME:latest
+        image: gcr.io/training-384005/api-poc:latest
         # This app listens on port 8080 for web traffic by default.
         ports:
         - containerPort: 8080
