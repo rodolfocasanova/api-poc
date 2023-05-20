@@ -1,32 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cluster1
+  name: api-cluster1
   labels:
-    app: cluster1
+    app: api-cluster1
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: cluster1
+      app: api-cluster1
   template:
     metadata:
       labels:
-        app: cluster1
+        app: api-cluster1
     spec:
       containers:
       - name: cluster1
-        image: us.gcr.io/admin-352301/flaskdemoimage
+        image: gcr.io/training-384005/api-poc
         ports:
         - containerPort: 8080
 ---
 kind: Service
 apiVersion: v1
 metadata:
-  name: cluster1
+  name: api-cluster1
 spec:
   selector:
-    app: cluster1
+    app: api-cluster1
   ports:
   - protocol: TCP
     port: 80
