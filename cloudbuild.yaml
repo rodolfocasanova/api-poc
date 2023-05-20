@@ -22,7 +22,7 @@ steps:
       - 'gcloud'
       - 'run'
       - 'deploy'
-      - 'api-flask-img-${SHORT_SHA}'
+      - 'api-poc:latest'
       - '--image=gcr.io/training-384005/api-poc:latest'
       - '--region'
       - 'us-central1'
