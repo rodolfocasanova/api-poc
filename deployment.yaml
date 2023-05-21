@@ -19,7 +19,7 @@ spec:
         image: gcr.io/training-384005/api-poc:latest
         ports:
         - containerPort: 5000
-        - containerPort: 8000  # Add container port for Prometheus metrics server
+        - containerPort: 8000
 ---
 kind: Service
 apiVersion: v1
@@ -29,10 +29,12 @@ spec:
   selector:
     app: my-cluster
   ports:
-  - protocol: TCP
+  - name: http
+    protocol: TCP
     port: 80
     targetPort: 5000
-  - protocol: TCP
-    port: 8000  # Expose port 8000 for Prometheus metrics server
-    targetPort: 8000  # Map the service port to container port 8000
+  - name: metrics
+    protocol: TCP
+    port: 8000
+    targetPort: 8000
   type: LoadBalancer
