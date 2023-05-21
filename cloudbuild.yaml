@@ -27,16 +27,15 @@ steps:
     env:
       - 'CLOUDSDK_COMPUTE_REGION=$_CUSTOM_REGION'
       - 'CLOUDSDK_CONTAINER_CLUSTER=$_CUSTOM_CLUSTER'
-- name: 'gcr.io/cloud-builders/kubectl'
-  args:
-    - 'set'
-    - 'image'
-    - 'my-cluster'
-    - 'gcr.io/training-384005/api-poc:latest'
-  env:
-    - 'CLOUDSDK_COMPUTE_REGION=$_CUSTOM_REGION'
-    - 'CLOUDSDK_CONTAINER_CLUSTER=$_CUSTOM_CLUSTER'
-
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args:
+      - 'set'
+      - 'image'
+      - 'my-customer'
+      - 'gcr.io/training-384005/api-poc:latest'
+    env:
+      - 'CLOUDSDK_COMPUTE_REGION=$_CUSTOM_REGION'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=$_CUSTOM_CLUSTER'
 timeout: 1200s
 substitutions:
   _CUSTOM_REGION: us-central1-a
