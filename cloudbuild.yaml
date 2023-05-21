@@ -17,15 +17,8 @@ steps:
       - 'gcr.io/training-384005/api-poc:latest'
     env:
       - 'CLOUD_BUILD_TAG=gcr.io/training-384005/api-poc:latest'
-  - name: google/cloud-sdk
+  - name: 'gcr.io/cloud-builders/kubectl'
     args:
-      - 'gcloud'
-      - 'run'
-      - 'deploy'
-      - 'my-service'
-      - '--image=gcr.io/training-384005/api-poc:latest'
-      - '--region'
-      - 'us-central1'
-      - '--platform'
-      - 'managed'
-      - '--allow-unauthenticated'
+      - 'apply'
+      - '-f'
+      - 'deployment.yaml'

@@ -1,39 +1,44 @@
-# using flask_restful
-from flask import Flask, jsonify, request
-from flask_restful import Resource, Api
-import os
-  
-# creating the flask app
-app = Flask(__name__)
-# creating an API object
-api = Api(app)
-  
-# making a class for a particular resource
-# the get, post methods correspond to get and post requests
-# they are automatically mapped by flask_restful.
-# other methods include put, delete, etc.
-class API(Resource):
-  
-    # corresponds to the GET request.
-    # this function is called whenever there
-    # is a GET request for this resource
-    def get(self):
-  
-        return jsonify({'status': '200','response': 'Flask up and running'})
-  
-    # Corresponds to POST request
-    def post(self):
-          
-        data = request.get_json()     # status code
-        return jsonify({'status': '200','response': data}), 201
-  
-  
-  
-# adding the defined resources along with their corresponding urls
-api.add_resource(API, '/')
+from prometheus_client import start_http_server, Counter, Summary
+from fastapi import FastAPI
+import time
+import random
+import json
 
-  
-  
-# driver function
-if __name__=='__main__':
-    app.run( debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)) )
+app = FastAPI()
+
+# Initialize metrics
+REQUEST_COUNT = Counter('myapp_request_count', 'Total number of requests', ['service', 'endpoint'])
+REQUEST_TIME = Summary('myapp_request_processing_seconds', 'Request processing time in seconds', ['service', 'endpoint'])
+
+data = {
+    "name": "John Doe",
+    "email": "johndoe@example.com"
+    }
+
+@app.get('/')
+def hello():
+    # Increment the request count metric with service and endpoint tags
+    REQUEST_COUNT.labels(service='myapp', endpoint='/').inc()
+
+    # Generate a random integer between a range
+    random_number = random.randint(1, 5)
+    print(random_number)
+
+    # Convert the dictionary to JSON string
+    json_data = data
+    # Print the JSON data
+    print(json_data)
+
+    # Simulate some processing time
+    with REQUEST_TIME.labels(service='myapp', endpoint='/').time():
+        # Perform some work here
+        time.sleep(random_number)  # Simulate 2 seconds of processing time
+        return json_data
+
+if __name__ == '__main__':
+    # Start the HTTP server to expose metrics
+    start_http_server(8000)
+
+    # Run the FastAPI application using Uvicorn server
+    import uvicorn
+    uvicorn.run(app, host='0.0.0.0', port=5000)
