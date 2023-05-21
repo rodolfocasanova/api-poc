@@ -31,7 +31,7 @@ steps:
     args:
       - 'set'
       - 'image'
-      - 'deployment/$_CUSTOM_CLUSTER'
+      - '$_CUSTOM_CLUSTER'
       - 'gcr.io/training-384005/api-poc:latest'
     env:
       - 'CLOUDSDK_COMPUTE_REGION=$_CUSTOM_REGION'
