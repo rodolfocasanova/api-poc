@@ -23,7 +23,7 @@ steps:
     args:
         - 'apply'
         - '-f'
-        - 'kubernetes.yaml'
+        - 'deployment.yaml'
     env:
       - CLOUDSDK_COMPUTE_REGION=$_CUSTOM_REGION
       - CLOUDSDK_CONTAINER_CLUSTER=$_CUSTOM_CLUSTER
