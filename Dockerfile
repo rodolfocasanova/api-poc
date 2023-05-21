@@ -1,20 +1,20 @@
 # Use the official Python image as the base image
 FROM python:3.6-slim-buster
 
-# Set the working directory inside the container
+# Set the working directory in the container
 WORKDIR /app
 
-# Copy the requirements file to the working directory
+# Copy the requirements.txt file to the container
 COPY requirements.txt .
 
 # Install the Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the app.py file to the working directory
-COPY app_files/app.py .
+# Copy the application files to the container
+COPY app_files .
 
-# Expose the port on which the FastAPI application will run
-EXPOSE 5000
+# Expose the port that the FastAPI application will listen on
+EXPOSE 8000
 
-# Start the FastAPI application using Uvicorn server
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "5000"]
+# Set the entrypoint command to run the app.py file using uvicorn
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
