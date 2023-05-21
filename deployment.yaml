@@ -18,7 +18,7 @@ spec:
       - name: cluster1
         image: gcr.io/training-384005/api-poc:latest
         ports:
-        - containerPort: 8000
+        - containerPort: 5000
 ---
 kind: Service
 apiVersion: v1
@@ -30,5 +30,5 @@ spec:
   ports:
   - protocol: TCP
     port: 80
-    targetPort: 8000
+    targetPort: 5000
   type: LoadBalancer
