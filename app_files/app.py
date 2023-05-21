@@ -1,8 +1,10 @@
-from prometheus_client import start_http_server, Counter, Summary
 from fastapi import FastAPI
+from fastapi.responses import PlainTextResponse
+from prometheus_client import start_http_server, Counter, Summary, generate_latest
 import time
 import random
 import json
+
 
 app = FastAPI()
 
@@ -14,6 +16,11 @@ data = {
     "name": "John Doe",
     "email": "johndoe@example.com"
     }
+
+@app.get('/metrics')
+def metrics():
+    return PlainTextResponse(generate_latest(), media_type='text/plain')
+
 
 @app.get('/')
 def hello():
@@ -34,6 +41,7 @@ def hello():
         # Perform some work here
         time.sleep(random_number)  # Simulate 2 seconds of processing time
         return json_data
+
 
 if __name__ == '__main__':
     # Start the HTTP server to expose metrics
