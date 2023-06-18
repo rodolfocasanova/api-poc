@@ -45,8 +45,8 @@ steps:
 timeout: 1200s
 substitutions:
   _GCP_PROJECT: training-384005
-  _CUSTOM_REGION: us-central1-a
-  _CUSTOM_CLUSTER: my-cluster
+  _CUSTOM_REGION: us-central1-c
+  _CUSTOM_CLUSTER: gke-terraform-learn
   _DOCKER_IMAGE: api-poc
   _DEPLOYMENT_NAME: my-cluster
   _REPLICAS: '1'
