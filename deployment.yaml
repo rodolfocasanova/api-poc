@@ -1,40 +1,40 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-cluster
+  name: {{ env "DEPLOYMENT_NAME" }}
   labels:
-    app: my-cluster
+    app: {{ env "DEPLOYMENT_NAME" }}
 spec:
-  replicas: 1
+  replicas: {{ env "REPLICAS" }}
   selector:
     matchLabels:
-      app: my-cluster
+      app: {{ env "DEPLOYMENT_NAME" }}
   template:
     metadata:
       labels:
-        app: my-cluster
+        app: {{ env "DEPLOYMENT_NAME" }}
     spec:
       containers:
       - name: cluster1
-        image: gcr.io/training-384005/api-poc:latest
+        image: gcr.io/{{ env "PROJECT_ID" }}/{{ env "DOCKER_IMAGE" }}:latest
         ports:
-        - containerPort: 5000
-        - containerPort: 8000
+        - containerPort: {{ env "CONTAINER_PORT1" }}
+        - containerPort: {{ env "CONTAINER_PORT2" }}
 ---
 kind: Service
 apiVersion: v1
 metadata:
-  name: my-cluster
+  name: {{ env "SERVICE_NAME" }}
 spec:
   selector:
-    app: my-cluster
+    app: {{ env "SERVICE_NAME" }}
   ports:
   - name: http
     protocol: TCP
-    port: 80
-    targetPort: 5000
+    port: {{ env "SERVICE_PORT1" }}
+    targetPort: {{ env "CONTAINER_PORT1" }}
   - name: metrics
     protocol: TCP
-    port: 8000
-    targetPort: 8000
-  type: LoadBalancer
+    port: {{ env "SERVICE_PORT2" }}
+    targetPort: {{ env "CONTAINER_PORT2" }}
+  type: {{ env "SERVICE_TYPE" }}

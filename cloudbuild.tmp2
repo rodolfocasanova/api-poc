@@ -1,0 +1,42 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      - 'gcr.io/training-384005/api-poc:${SHORT_SHA}'
+      - '-t'
+      - 'gcr.io/training-384005/api-poc:latest'
+      - '.'
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - 'gcr.io/training-384005/api-poc:${SHORT_SHA}'
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - 'gcr.io/training-384005/api-poc:latest'
+    env:
+      - 'CLOUD_BUILD_TAG=gcr.io/training-384005/api-poc:latest'
+  # This step deploys the new version of our container image
+  # in the Kubernetes Engine cluster.
+  - name: gcr.io/cloud-builders/kubectl
+    args:
+        - 'apply'
+        - '-f'
+        - 'deployment.yaml'
+    env:
+      - 'CLOUDSDK_COMPUTE_REGION=$_CUSTOM_REGION'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=$_CUSTOM_CLUSTER'
+  - name: "gcr.io/cloud-builders/gke-deploy"
+    args:
+    - run
+    - --filename=deployment.yaml
+    - --image=gcr.io/training-384005/api-poc:latest
+    - --location=us-central1-a
+    - --cluster=my-cluster
+
+timeout: 1200s
+substitutions:
+  _CUSTOM_REGION: us-central1-a
+  _CUSTOM_CLUSTER: my-cluster
+  _DOCKER_IMAGE: api-poc
