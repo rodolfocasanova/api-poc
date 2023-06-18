@@ -17,3 +17,8 @@ pip install package_name
 When you are done working with the virtual environment, you can deactivate it:
 
 deactivate
+
+
+gcloud projects add-iam-policy-binding tatami-devops --member=user:rodolfocasanova.dev@gmail.com --role=roles/container.clusterViewer
+
+gcloud container clusters get-credentials --project=tatami-devops --region=us-central1-c gke-terraform-learn

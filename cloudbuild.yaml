@@ -52,7 +52,7 @@ substitutions:
   _REPLICAS: '1'
   _CONTAINER_PORT1: '5000'
   _CONTAINER_PORT2: '8000'
-  _SERVICE_NAME: my-cluster
+  _SERVICE_NAME: gke-learn-service
   _SERVICE_PORT1: '80'
   _SERVICE_PORT2: '8000'
   _SERVICE_TYPE: LoadBalancer
