@@ -31,6 +31,7 @@ steps:
     env:
       - 'CLOUDSDK_COMPUTE_REGION=${_CUSTOM_REGION}'
       - 'CLOUDSDK_CONTAINER_CLUSTER=${_CUSTOM_CLUSTER}'
+      - 'DEPLOYMENT_NAME=${_DEPLOYMENT_NAME}'
   # Additional deployment steps can be added here
   
   - name: "gcr.io/cloud-builders/gke-deploy"
