@@ -1,40 +1,40 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ env "DEPLOYMENT_NAME" }}
+  name: my-cluster
   labels:
-    app: {{ env "DEPLOYMENT_NAME" }}
+    app: my-cluster
 spec:
-  replicas: {{ env "REPLICAS" }}
+  replicas: 1
   selector:
     matchLabels:
-      app: {{ env "DEPLOYMENT_NAME" }}
+      app: my-cluster
   template:
     metadata:
       labels:
-        app: {{ env "DEPLOYMENT_NAME" }}
+        app: my-cluster
     spec:
       containers:
       - name: cluster1
-        image: gcr.io/{{ env "PROJECT_ID" }}/{{ env "DOCKER_IMAGE" }}:latest
+        image: gcr.io/tatami-devops/api-poc:latest
         ports:
-        - containerPort: {{ env "CONTAINER_PORT1" }}
-        - containerPort: {{ env "CONTAINER_PORT2" }}
+        - containerPort: 5000
+        - containerPort: 8000
 ---
 kind: Service
 apiVersion: v1
 metadata:
-  name: {{ env "SERVICE_NAME" }}
+  name: gke-learn-service
 spec:
   selector:
-    app: {{ env "SERVICE_NAME" }}
+    app: gke-learn-service
   ports:
   - name: http
     protocol: TCP
-    port: {{ env "SERVICE_PORT1" }}
-    targetPort: {{ env "CONTAINER_PORT1" }}
+    port: 80
+    targetPort: 5000
   - name: metrics
     protocol: TCP
-    port: {{ env "SERVICE_PORT2" }}
-    targetPort: {{ env "CONTAINER_PORT2" }}
-  type: {{ env "SERVICE_TYPE" }}
+    port: 8000
+    targetPort: 8000
+  type: LoadBalancer
