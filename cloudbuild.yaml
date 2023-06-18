@@ -3,24 +3,24 @@ steps:
     args:
       - 'build'
       - '-t'
-      - 'gcr.io/${_GCP_PROJECT}/${_DOCKER_IMAGE}:${SHORT_SHA}'
+      - 'gcr.io/$PROJECT_ID/$DOCKER_IMAGE:$SHORT_SHA'
       - '-t'
-      - 'gcr.io/${_GCP_PROJECT}/${_DOCKER_IMAGE}:latest'
+      - 'gcr.io/$PROJECT_ID/$DOCKER_IMAGE:latest'
       - '.'
   # Additional build steps can be added here
   
   - name: 'gcr.io/cloud-builders/docker'
     args:
       - 'push'
-      - 'gcr.io/${_GCP_PROJECT}/${_DOCKER_IMAGE}:${SHORT_SHA}'
+      - 'gcr.io/$PROJECT_ID/$DOCKER_IMAGE:$SHORT_SHA'
   # Additional push steps can be added here
   
   - name: 'gcr.io/cloud-builders/docker'
     args:
       - 'push'
-      - 'gcr.io/${_GCP_PROJECT}/${_DOCKER_IMAGE}:latest'
+      - 'gcr.io/$PROJECT_ID/$DOCKER_IMAGE:latest'
     env:
-      - 'CLOUD_BUILD_TAG=gcr.io/${_GCP_PROJECT}/${_DOCKER_IMAGE}:latest'
+      - 'CLOUD_BUILD_TAG=gcr.io/$PROJECT_ID/$DOCKER_IMAGE:latest'
   # Additional push steps can be added here
   
   - name: gcr.io/cloud-builders/kubectl
@@ -29,17 +29,17 @@ steps:
       - '-f'
       - 'deployment.yaml'
     env:
-      - 'CLOUDSDK_COMPUTE_REGION=${_CUSTOM_REGION}'
-      - 'CLOUDSDK_CONTAINER_CLUSTER=${_CUSTOM_CLUSTER}'
+      - 'CLOUDSDK_COMPUTE_REGION=$_CUSTOM_REGION'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=$_CUSTOM_CLUSTER'
   # Additional deployment steps can be added here
   
   - name: "gcr.io/cloud-builders/gke-deploy"
     args:
       - 'run'
       - '--filename=deployment.yaml'
-      - '--image=gcr.io/${_GCP_PROJECT}/${_DOCKER_IMAGE}:latest'
-      - '--location=${_CUSTOM_REGION}'
-      - '--cluster=${_CUSTOM_CLUSTER}'
+      - '--image=gcr.io/$PROJECT_ID/$DOCKER_IMAGE:latest'
+      - '--location=$_CUSTOM_REGION'
+      - '--cluster=$_CUSTOM_CLUSTER'
   # Additional deployment steps can be added here
 
 timeout: 1200s
