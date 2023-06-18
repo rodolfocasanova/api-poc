@@ -41,7 +41,7 @@ steps:
       - '--cluster=${_CUSTOM_CLUSTER}'
   # Additional deployment steps can be added here
 
-timeout: 1200s
+timeout: 10m0s
 substitutions:
   _GCP_PROJECT: tatami-devops
   _CUSTOM_REGION: us-central1-c
