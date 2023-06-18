@@ -44,7 +44,7 @@ steps:
 
 timeout: 1200s
 substitutions:
-  _GCP_PROJECT: training-384005
+  _GCP_PROJECT: tatami-devops
   _CUSTOM_REGION: us-central1-c
   _CUSTOM_CLUSTER: gke-terraform-learn
   _DOCKER_IMAGE: api-poc
