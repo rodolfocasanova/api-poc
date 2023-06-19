@@ -45,13 +45,13 @@ timeout: 10m0s
 substitutions:
   _GCP_PROJECT: tatami-devops
   _CUSTOM_REGION: us-central1-c
-  _CUSTOM_CLUSTER: gke-terraform-learn
+  _CUSTOM_CLUSTER: cluster-training
   _DOCKER_IMAGE: api-poc
-  _DEPLOYMENT_NAME: my-cluster
+  _DEPLOYMENT_NAME: cluster-training-deployment
   _REPLICAS: '1'
   _CONTAINER_PORT1: '5000'
   _CONTAINER_PORT2: '8000'
-  _SERVICE_NAME: gke-learn-service
+  _SERVICE_NAME: cluster-training-service
   _SERVICE_PORT1: '80'
   _SERVICE_PORT2: '8000'
   _SERVICE_TYPE: LoadBalancer

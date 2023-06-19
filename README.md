@@ -22,3 +22,18 @@ deactivate
 gcloud projects add-iam-policy-binding tatami-devops --member=user:rodolfocasanova.dev@gmail.com --role=roles/container.clusterViewer
 
 gcloud container clusters get-credentials --project=tatami-devops --region=us-central1-c gke-terraform-learn
+
+------------
+gcloud projects add-iam-policy-binding tatami-devops --member=user:rodolfocasanova.dev@gmail.com --role=roles/container.clusterViewer
+
+gcloud container clusters get-credentials --project=tatami-devops --region=us-central1-c gke-terraform-learn
+
+gcloud config set project tatami-devops
+
+gcloud container clusters get-credentials gke-terraform-learn --project=tatami-devops --region=us-central1-c
+
+
+
+gcloud projects add-iam-policy-binding tatami-devops --member=serviceAccount:tf-gke-gke-terraform-l-8l6w@tatami-devops.iam.gserviceaccount.com --role=roles/container.clusterViewer
+
+gcloud projects add-iam-policy-binding tatami-devops --member=serviceAccount:tf-gke-gke-terraform-l-8l6w@tatami-devops.iam.gserviceaccount.com --role=roles/container.clusterViewer
