@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cluster-training
+  name: gke-cluster-training
   labels:
-    app: cluster-training
+    app: gke-cluster-training
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: cluster-training
+      app: gke-cluster-training
   template:
     metadata:
       labels:
-        app: cluster-training
+        app: gke-cluster-training
     spec:
       containers:
-      - name: cluster-training-container
+      - name: gke-cluster-training-container
         image: gcr.io/tatami-devops/api-poc:latest
         ports:
         - containerPort: 5000
@@ -25,10 +25,10 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: cluster-training-service
+  name: gke-cluster-training-service
 spec:
   selector:
-    app: cluster-training-service
+    app: gke-cluster-training-service
   ports:
   - name: http
     protocol: TCP
