@@ -7,31 +7,34 @@ steps:
       - '-t'
       - 'gcr.io/${_GCP_PROJECT}/${_DOCKER_IMAGE}:latest'
       - '.'
-  # Additional build steps can be added here
-  
+    # Additional build steps can be added here
+
   - name: 'gcr.io/cloud-builders/docker'
     args:
       - 'push'
       - 'gcr.io/${_GCP_PROJECT}/${_DOCKER_IMAGE}:${SHORT_SHA}'
-  # Additional push steps can be added here
-  
+    # Additional push steps can be added here
+
   - name: 'gcr.io/cloud-builders/docker'
     args:
       - 'push'
       - 'gcr.io/${_GCP_PROJECT}/${_DOCKER_IMAGE}:latest'
     env:
       - 'CLOUD_BUILD_TAG=gcr.io/${_GCP_PROJECT}/${_DOCKER_IMAGE}:latest'
-  # Additional push steps can be added here
-  
+    # Additional push steps can be added here
+
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'bash'
     args:
       - '-c'
       - |
-        gcloud container clusters get-credentials --project="${_GCP_PROJECT}" --region="${_CUSTOM_REGION}" "${_CUSTOM_CLUSTER}"
+        gcloud container clusters get-credentials \
+          --project="${_GCP_PROJECT}" \
+          --region="${_CUSTOM_REGION}" \
+          "${_CUSTOM_CLUSTER}"
         kubectl apply -f deployment.yaml --namespace="${_NAMESPACE}"
-  # Additional deployment steps can be added here
-  
+    # Additional deployment steps can be added here
+
   - name: "gcr.io/cloud-builders/gke-deploy"
     args:
       - 'run'
@@ -39,7 +42,8 @@ steps:
       - '--image=gcr.io/${_GCP_PROJECT}/${_DOCKER_IMAGE}:latest'
       - '--location=${_CUSTOM_REGION}'
       - '--cluster=${_CUSTOM_CLUSTER}'
-  # Additional deployment steps can be added here
+      - '-v'
+    # Additional deployment steps can be added here
 
 timeout: 10m0s
 substitutions:
