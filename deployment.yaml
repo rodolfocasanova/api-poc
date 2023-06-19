@@ -33,5 +33,21 @@ spec:
     protocol: TCP
     port: 80
     targetPort: 5000
-
   type: LoadBalancer
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gke-cluster-training-ingress
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: gke-cluster-training-service
+            port:
+              number: 80
