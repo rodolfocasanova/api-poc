@@ -15,7 +15,7 @@ spec:
         app: cluster-training
     spec:
       containers:
-      - name: ccluster-training-container
+      - name: cluster-training-container
         image: gcr.io/tatami-devops/api-poc:latest
         ports:
         - containerPort: 5000
