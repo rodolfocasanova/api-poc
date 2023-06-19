@@ -42,7 +42,7 @@ steps:
       - '--image=gcr.io/${_GCP_PROJECT}/${_DOCKER_IMAGE}:latest'
       - '--location=${_CUSTOM_REGION}'
       - '--cluster=${_CUSTOM_CLUSTER}'
-      - '-v'
+
     # Additional deployment steps can be added here
 
 timeout: 10m0s
