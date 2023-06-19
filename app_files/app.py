@@ -28,7 +28,7 @@ def hello():
     REQUEST_COUNT.labels(service='myapp', endpoint='/').inc()
 
     # Generate a random integer between a range
-    random_number = random.randint(0, 2)
+    random_number = random.randint(0, 1)
     print(random_number)
 
     # Convert the dictionary to JSON string

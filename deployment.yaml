@@ -19,8 +19,7 @@ spec:
         image: gcr.io/tatami-devops/api-poc:latest
         ports:
         - containerPort: 5000
-        - containerPort: 8000
-    
+
 ---
 kind: Service
 apiVersion: v1
@@ -34,8 +33,5 @@ spec:
     protocol: TCP
     port: 80
     targetPort: 5000
-  - name: metrics
-    protocol: TCP
-    port: 8000
-    targetPort: 8000
+
   type: LoadBalancer
