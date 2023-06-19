@@ -30,7 +30,7 @@ steps:
       - |
         gcloud container clusters get-credentials \
           --project="${_GCP_PROJECT}" \
-          --region="${_CUSTOM_REGION}" \
+          --zone="${_CUSTOM_REGION}" \
           "${_CUSTOM_CLUSTER}"
         kubectl apply -f deployment.yaml --namespace="${_NAMESPACE}"
     # Additional deployment steps can be added here
